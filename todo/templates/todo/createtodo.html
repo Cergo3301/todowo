@@ -1,13 +1,49 @@
 {% extends 'todo/base.html' %}
 
 {% block content %}
-    <h1>Создать задачу</h1>
+<div class="container title">
+    <h1 class="d-flex p-2  border-bottom border-warning">Создать задачу</h1>
+</div>
 
-    {{ error }}
+<h3 class="text-danger"> {{ error }} </h3>
 
 <form method="post">
+
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Создать</button>
+    <div class="container form-task">
+        <div class="row text-start">
+            <div class="col-3 text-end">
+                {{ form.title.label }}
+            </div>
+            <div class="col-9 text-start">
+                {{ form.title }}
+            </div>
+        </div>
+        <div class="row text-start">
+            <div class="col-3 text-end">
+                {{ form.task.label }}
+            </div>
+            <div class="col text-start">
+                {{ form.task }}
+            </div>
+        </div>
+        <div class="row text-start">
+            <div class="col-3 text-end">
+                {{ form.important.label }}
+            </div>
+            <div class="col">
+                {{ form.important }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-9 text-center">
+                <button type="submit" class="btn btn-warning">Создать</button>
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+    </div>
+
 </form>
 {% endblock %}

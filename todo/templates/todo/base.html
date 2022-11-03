@@ -1,48 +1,62 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Vollkorn:ital@1&display=swap" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet"/>
     <title>Title</title>
 </head>
 <body>
-    {% if user.is_authenticated %}
-        Авторизован как: {{ user.username }}
+
+<nav class="navbar navbar-expand bg-success bg-gradient fw-semibold">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'currenttodos' %}">
+        <img src="{% static 'images/world.svg' %}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+      ToDo
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+          {% if user.is_authenticated %}
+        <a class="nav-link" href="{% url 'createtodo' %}">Создать задачу</a>
+        <a class="nav-link" href="{% url 'currenttodos' %}">Текущие задачи</a>
+        <a class="nav-link" href="{% url 'completedtodos' %}">Выполненые задачи</a>
+          {% else %}
+        <a class="nav-link" href="{% url 'loginuser' %}">Войти</a>
+        <a class="nav-link" href="{% url 'signupuser' %}">Зарегистрироваться</a>
+          {% endif %}
+      </div>
+
+    </div>
+      {% if user.is_authenticated %}
+      <div class="user-right-panel">
+            Авторизован как: {{ user.username }}
     <form action="{% url 'logoutuser' %}" method="post">
             {% csrf_token %}
-            <button type="submit">Выйти</button>
+            <button type="submit" class="btn btn-danger">Выйти</button>
         </form>
+        </div>
+      {% endif %}
+  </div>
+</nav>
 
-    <ul class="nav justify-content-center">
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'createtodo' %}">Создать задачу</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'currenttodos' %}">Текущие задачи</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'completedtodos' %}">Выполненые задачи</a>
-      </li>
-    </ul>
 
-    {% else %}
-
-    <ul class="nav justify-content-center">
-      <li class="nav-item">
-        <a class="nav-link" aria-current="page" href="{% url 'loginuser' %}">Войти</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'signupuser' %}">Зарегистрироваться</a>
-      </li>
-    </ul>
-    {% endif %}
-
-    <div class="container">
         {% block content %}
 
         {% endblock %}
+
+{% block footer %}
+<div class="container position-relative">
+    <div class="spinner-border text-light position-absolute bottom-0 end-0" role="status">
+      Sergo
     </div>
+</div>
+{% endblock %}
 
 </body>
 </html>

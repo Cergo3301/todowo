@@ -2,12 +2,14 @@
 
 {% block content %}
 
-    <h3>Задачи:</h3>
-<ul>
+<div class="container title">
+    <h1 class="d-flex p-2  border-bottom border-warning">Задачи:</h1>
+</div>
+<ul class="">
 {% for todo in todos %}
 <li>
-    {% if todo.important %}<b>{% endif %}
-        <a href="{% url 'viewtodo' todo.id %}">{{ todo.title }}</a>
+    {% if todo.important %}<b class="text-danger">{% endif %}
+        <a href="{% url 'viewtodo' todo.id %}" class="link">{{ todo.title }}</a>
     {% if todo.task %}<p> ➥{{ todo.task }} </p> {% endif %}
     {% if todo.important %}</b>{% endif %}
 </li>

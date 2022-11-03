@@ -2,15 +2,35 @@
 
 {% block content %}
 
-<div class="container text-center">
-<h4>Войти</h4>
+<h2>Войти</h2>
 
-<h3> {{ error }} </h3>
+<h3 class="text-danger"> {{ error }} </h3>
 
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Войти</button>
+    <div class="container">
+        <div class="row">
+            <div class="col text-end">
+                {{ form.username.label }}
+            </div>
+            <div class="col text-start">
+                {{ form.username }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-end">
+                {{ form.password.label }}
+            </div>
+            <div class="col text-start">
+                {{ form.password }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-center">
+                <button type="submit" class="btn btn-info">Войти</button>
+            </div>
+        </div>
+    </div>
 </form>
 </div>
 {% endblock %}

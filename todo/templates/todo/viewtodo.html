@@ -2,24 +2,54 @@
 
 {% block content %}
 
-<h3>Просмотр</h3>
 
-{{ todo.title }}
+<h1 class="d-flex p-2  border-bottom border-warning">Просмотр</h1>
+
+
+<div class=""> {{ todo.title }} </div>
 
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Сохранить</button>
+    <div class="container form-task">
+        <div class="row text-start">
+            <div class="col-3 text-end">
+                {{ form.title.label }}
+            </div>
+            <div class="col-9 text-start">
+                {{ form.title }}
+            </div>
+        </div>
+        <div class="row text-start">
+            <div class="col-3 text-end">
+                {{ form.task.label }}
+            </div>
+            <div class="col text-start">
+                {{ form.task }}
+            </div>
+        </div>
+        <div class="row text-start">
+            <div class="col-3 text-end">
+                {{ form.important.label }}
+            </div>
+            <div class="col">
+                {{ form.important }}
+            </div>
+        </div>
+
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-warning">Сохранить</button>
 </form>
 
 <form method="post" action="{% url 'completedtodo' todo.id %}">
     {% csrf_token %}
-    <button type="submit">Задача выполнена</button>
+    <button type="submit" class="btn btn-success">Задача выполнена</button>
 </form>
 
 <form method="post" action="{% url 'deletedtodo' todo.id %}">
     {% csrf_token %}
-    <button type="submit">Удалить задачу</button>
+    <button type="submit" class="btn btn-danger">Удалить задачу</button>
 </form>
 
 
